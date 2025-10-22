@@ -2,19 +2,20 @@
 
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
-import type { SearchChunk } from "@/lib/search";
+import { useApp } from "@/contexts/app-context";
+import type { SearchChunk } from "@/lib/types";
 
 interface ProductGridProps {
   products: SearchChunk[];
-  onSelectionChange?: (selected: boolean) => void;
 }
 
-export function ProductGrid({ products, onSelectionChange }: ProductGridProps) {
+export function ProductGrid({ products }: ProductGridProps) {
   const [selected, setSelected] = useState<string | null>(null);
+  const { setIsProductSelected } = useApp();
 
   const handleSelect = (id: string | null) => {
     setSelected(id);
-    onSelectionChange?.(id !== null);
+    setIsProductSelected(id !== null);
   };
 
   if (products.length === 0) {
@@ -80,10 +81,10 @@ export function ProductGrid({ products, onSelectionChange }: ProductGridProps) {
             className="fixed inset-0 z-50 flex flex-col items-center justify-center"
             onClick={() => handleSelect(null)}
           >
-            <div className="flex flex-col items-center gap-4 max-w-3xl">
+            <div className="flex flex-col items-center gap-4 max-w-3xl px-4 py-8">
               <motion.div
                 layoutId={selected}
-                className="relative w-[600px] h-[600px] rounded-lg overflow-hidden border"
+                className="relative w-[90vw] h-[90vw] max-w-[600px] max-h-[600px] sm:w-[75vw] sm:h-[75vw] md:w-[60vw] md:h-[60vw] lg:w-[500px] lg:h-[500px] rounded-lg overflow-hidden border"
               >
                 <img
                   src={selectedProduct.image_url.url}

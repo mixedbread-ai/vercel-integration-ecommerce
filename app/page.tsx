@@ -1,25 +1,14 @@
 "use client";
 
-import Link from "next/link";
-import { useState } from "react";
 import { motion } from "motion/react";
+import Link from "next/link";
 import { Header } from "@/components/header";
 import { ProductGrid } from "@/components/product-grid";
 import { ProductGridSkeleton } from "@/components/product-skeleton";
-import { useSearch } from "@/lib/use-search";
+import { useApp } from "@/contexts/app-context";
 
-export default function Home() {
-  const [query, setQuery] = useState("A cozy gray sweater for the winter");
-  const [searchInput, setSearchInput] = useState(
-    "A cozy gray sweater for the winter",
-  );
-  const [isProductSelected, setIsProductSelected] = useState(false);
-  const { products, isLoading, error } = useSearch(query);
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    setQuery(searchInput);
-  };
+export default function App() {
+  const { isProductSelected, products, isLoading, error } = useApp();
 
   return (
     <div className="mx-auto flex min-h-screen max-w-7xl flex-col">
@@ -27,17 +16,11 @@ export default function Home() {
         animate={{ opacity: isProductSelected ? 0 : 1 }}
         transition={{ duration: 0.2 }}
       >
-        <Header
-          searchInput={searchInput}
-          onSearchInputChange={setSearchInput}
-          onSearchSubmit={handleSearch}
-        />
+        <Header />
       </motion.div>
 
-      {/* Main Content */}
       <div className="flex w-full flex-1 flex-col px-5">
         <main className="flex flex-1 flex-col">
-          {/* Products Section */}
           <div className="py-8">
             {error ? (
               <div className="flex min-h-[400px] items-center justify-center">
@@ -48,15 +31,11 @@ export default function Home() {
             ) : isLoading ? (
               <ProductGridSkeleton />
             ) : (
-              <ProductGrid
-                products={products}
-                onSelectionChange={setIsProductSelected}
-              />
+              <ProductGrid products={products} />
             )}
           </div>
         </main>
 
-        {/* Footer */}
         <motion.footer
           animate={{ opacity: isProductSelected ? 0 : 1 }}
           transition={{ duration: 0.2 }}
