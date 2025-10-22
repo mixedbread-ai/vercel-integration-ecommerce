@@ -8,13 +8,14 @@ A starter template for building AI Search applications using Next.js, Vercel, an
 
 See the application in action:
 
+https://github.com/user-attachments/assets/c7ceb37a-4892-4747-9e98-91042e724a69
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js 22+ installed
-- Git installeds
+- Node.js 22+
+- Git
 
 ### 1. Clone the Repository
 
