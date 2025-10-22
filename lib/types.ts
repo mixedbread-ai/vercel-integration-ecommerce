@@ -25,3 +25,7 @@ export interface SearchChunk {
 export interface SearchResponse {
   results: SearchChunk[];
 }
+
+export interface ContainsFilesResponse {
+  containsFiles: boolean;
+}

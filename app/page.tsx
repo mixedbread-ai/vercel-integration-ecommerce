@@ -8,7 +8,7 @@ import { ProductGridSkeleton } from "@/components/product-skeleton";
 import { useApp } from "@/contexts/app-context";
 
 export default function App() {
-  const { isProductSelected, products, isLoading, error } = useApp();
+  const { isProductSelected, products, isLoading, error, containsFiles } = useApp();
 
   return (
     <div className="mx-auto flex min-h-screen max-w-7xl flex-col">
@@ -31,7 +31,7 @@ export default function App() {
             ) : isLoading ? (
               <ProductGridSkeleton />
             ) : (
-              <ProductGrid products={products} />
+              <ProductGrid products={products} containsFiles={containsFiles} />
             )}
           </div>
         </main>

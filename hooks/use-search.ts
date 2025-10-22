@@ -1,7 +1,7 @@
 import useSWR from "swr";
-import type { SearchResponse } from "@/lib/types";
+import type { ContainsFilesResponse, SearchResponse } from "@/lib/types";
 
-const fetcher = async (url: string): Promise<SearchResponse> => {
+const searchFetcher = async (url: string): Promise<SearchResponse> => {
   const res = await fetch(url);
   if (!res.ok) {
     throw new Error("Failed to fetch search results");
@@ -9,19 +9,42 @@ const fetcher = async (url: string): Promise<SearchResponse> => {
   return res.json();
 };
 
+const containsFilesFetcher = async (url: string): Promise<ContainsFilesResponse> => {
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error("Failed to fetch contains files data");
+  }
+  return res.json();
+};
+
 export function useSearch(query: string) {
   const { data, error, isLoading } = useSWR<SearchResponse>(
     query ? `/api/search?q=${encodeURIComponent(query)}` : null,
-    fetcher,
+    searchFetcher,
     {
       revalidateOnFocus: false,
       dedupingInterval: 2000,
     }
   );
 
+  const products = data?.results || [];
+  let containsFiles = true;
+  if (products.length === 0) {
+    const { data, error, isLoading } = useSWR<ContainsFilesResponse>(
+      `/api/contains_files`,
+      containsFilesFetcher,
+      {
+        revalidateOnFocus: false,
+        dedupingInterval: 2000,
+      }
+    );
+    containsFiles = data?.containsFiles ?? true;
+  }
+
   return {
-    products: data?.results || [],
+    products,
     isLoading,
     error,
+    containsFiles,
   };
 }

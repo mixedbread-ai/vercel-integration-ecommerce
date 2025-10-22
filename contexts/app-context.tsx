@@ -19,6 +19,9 @@ interface AppContextType {
   // Selection state
   isProductSelected: boolean;
   setIsProductSelected: (selected: boolean) => void;
+
+  // Store state
+  containsFiles: boolean;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -30,7 +33,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   );
   const [isProductSelected, setIsProductSelected] = useState(false);
 
-  const { products, isLoading, error } = useSearch(query);
+  const { products, isLoading, error, containsFiles} = useSearch(query);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -49,6 +52,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         error,
         isProductSelected,
         setIsProductSelected,
+        containsFiles,
       }}
     >
       {children}
