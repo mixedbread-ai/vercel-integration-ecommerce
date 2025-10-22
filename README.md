@@ -6,7 +6,7 @@ A starter template for integrating Mixedbread Search into ecommerce applications
 
 ## See it in action:
 
-https://github.com/user-attachments/assets/c7ceb37a-4892-4747-9e98-91042e724a69
+https://github.com/user-attachments/assets/e57e6d13-10b0-40f7-9b3b-29e7d04c0de1
 
 ## Getting Started
 
