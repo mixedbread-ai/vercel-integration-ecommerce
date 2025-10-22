@@ -4,6 +4,8 @@ A starter template for integrating Mixedbread Search into ecommerce applications
 
 > **Note:** This is a demo store that is currently not publicly accessible. We will add public stores in the future. Feel free to explore the code and use this as a starter template to build your own AI-powered search application.
 
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fmixedbread-ai%2Fvercel-integration-ecommerce&project-name=mixedbread-ecommerce-app&repository-name=mixedbread-ecommerce-app&redirect-url=https%3A%2F%2Fwww.mixedbread.com&developer-id=oac_iRJgsiA4yYT8aHOJIoLeoSWk&demo-title=Mixedbread%20Starter&demo-description=A%20starter%20ecommerce%20template%20using%20Next.js%2C%20Vercel%2C%20and%20Mixedbread.%20Ship%20your%20app%20with%20AI%20search.&demo-url=https%3A%2F%2Fvercel-integration-ecommerce.vercel.app&demo-image=https%3A%2F%2Fvercel-integration-ecommerce.vercel.app%2Fhome.png&products=%5B%7B%22type%22%3A%22integration%22%2C%22integrationSlug%22%3A%22mixedbread%22%2C%22productSlug%22%3A%22search%22%2C%22protocol%22%3A%22other%22%7D%5D)
+
 ## See it in action:
 
 https://github.com/user-attachments/assets/e57e6d13-10b0-40f7-9b3b-29e7d04c0de1
