@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import type { SearchResponse } from "./search";
+import type { SearchResponse } from "@/lib/types";
 
 const fetcher = async (url: string): Promise<SearchResponse> => {
   const res = await fetch(url);
