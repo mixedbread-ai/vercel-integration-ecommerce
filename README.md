@@ -1,12 +1,10 @@
-# Vercel with Mixedbread
+# Vercel Integration Ecommerce Demo
 
 A starter template for building AI Search applications using Next.js, Vercel, and Mixedbread.
 
 > **Note:** This is a demo store that is currently not publicly accessible. We will add public stores in the future. Feel free to explore the code and use this as a starter template to build your own AI-powered search application.
 
-## Demo Video
-
-See the application in action:
+## See it in action:
 
 https://github.com/user-attachments/assets/c7ceb37a-4892-4747-9e98-91042e724a69
 
@@ -77,4 +75,4 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to see the a
 
 ## License
 
-This project is open source and available as a starter template for building AI-powered search applications.
+MIT
