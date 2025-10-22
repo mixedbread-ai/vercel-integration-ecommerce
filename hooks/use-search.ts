@@ -29,17 +29,15 @@ export function useSearch(query: string) {
 
   const products = data?.results || [];
   let containsFiles = true;
-  if (products.length === 0) {
-    const { data, error, isLoading } = useSWR<ContainsFilesResponse>(
-      `/api/contains_files`,
-      containsFilesFetcher,
-      {
-        revalidateOnFocus: false,
-        dedupingInterval: 2000,
-      }
-    );
-    containsFiles = data?.containsFiles ?? true;
-  }
+  const { data: containsFilesData, error: containsFilesError, isLoading: containsFilesLoading } = useSWR<ContainsFilesResponse>(
+    `/api/contains_files`,
+    containsFilesFetcher,
+    {
+      revalidateOnFocus: false,
+      dedupingInterval: 2000,
+    }
+  );
+  containsFiles = containsFilesData?.containsFiles ?? true;
 
   return {
     products,

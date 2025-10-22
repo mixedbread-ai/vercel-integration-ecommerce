@@ -5,13 +5,14 @@ import { useEffect, useState } from "react";
 import { useApp } from "@/contexts/app-context";
 import type { SearchChunk } from "@/lib/types";
 import Link from "next/link";
+import { Button } from "./ui/button";
 
 interface ProductGridProps {
   products: SearchChunk[];
-  containsFiles: boolean;
+  ingestingFiles: boolean;
 }
 
-export function ProductGrid({ products, containsFiles }: ProductGridProps) {
+export function ProductGrid({ products, ingestingFiles }: ProductGridProps) {
   const [selected, setSelected] = useState<string | null>(null);
   const { setIsProductSelected } = useApp();
 
@@ -32,13 +33,12 @@ export function ProductGrid({ products, containsFiles }: ProductGridProps) {
     return () => window.removeEventListener("keydown", handleEscape);
   }, [selected]);
 
-  if (!containsFiles) {
+  if (ingestingFiles) {
     return (
       <div className="flex min-h-[400px] items-center justify-center">
-        <div className="space-y-2 text-center">
-          <p className="text-sm text-muted-foreground">The provided store does not contain any files.</p>
-          <p className="text-sm text-muted-foreground">Go to the <Link href="https://platform.mixedbread.com/" target="_blank" className="text-primary">Mixedbread Platform</Link> to add more files to your store.</p>
-          <p className="text-sm text-muted-foreground">Lookup the <Link href="https://github.com/mixedbread-ai/vercel-integration-ecommerce" target="_blank" className="text-primary">README.md</Link> for more information.</p>
+        <div className="flex flex-col items-center space-y-4">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+          <p className="text-sm text-muted-foreground">Ingesting files...</p>
         </div>
       </div>
     );
