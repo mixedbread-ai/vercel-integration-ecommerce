@@ -2,7 +2,6 @@
 
 import { Loader2, Search, SendHorizontal } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useApp } from "@/contexts/app-context";
@@ -15,7 +14,7 @@ export function Header() {
   return (
     <header className="w-full border-b">
       <div className="flex w-full flex-col gap-3 px-5 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:py-4">
-        <Link
+        <a
           href="/"
           className="flex items-center justify-end gap-2 sm:order-2 sm:gap-3"
         >
@@ -36,7 +35,7 @@ export function Header() {
             height={24}
             priority
           />
-        </Link>
+        </a>
 
         <form
           onSubmit={handleSearch}
