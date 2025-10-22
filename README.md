@@ -42,22 +42,49 @@ Add your Mixedbread API key to the `.env` file:
 
 ```txt
 MXBAI_API_KEY=your-api-key-here
+MXBAI_STORE_ID=your-store-id
 ```
 
-**To get your API key, you have two options:**
+**To get your API key and store ID, you have two options:**
 
 1. **From Vercel Integration** (Recommended if deploying to Vercel):
    - Go to your [Vercel Dashboard](https://vercel.com/dashboard)
    - Navigate to your project's **Integrations** tab
    - Install or access the Mixedbread integration
-   - Copy your API key from the integration settings
+   - Copy your API key and store ID from the integration settings
 
 2. **From Mixedbread Platform** (For standalone use):
    - Visit the [Mixedbread Platform](https://platform.mixedbread.com/platform?next=api-keys)
    - Sign up or log in to your account
    - Navigate to API Keys and create a new key
+   - Pick a store ID from your store list
 
-### 4. Run the Application
+### 4. Update Code and Metadata
+
+This template is pre-configured to work with the commerce dataset. If you're using your own dataset, you'll need to update the code to match your metadata structure and content URLs.
+
+**Key files to update:**
+
+1. **`lib/types.ts`** - Update the `ProductMetadata` interface to match your dataset's metadata fields
+2. **`components/product-grid.tsx`** - Update references to `metadata` fields (e.g., `metadata.name`, `metadata.description`) and `image_url.url`
+3. **`app/api/search/route.ts`** - Adjust search parameters if needed (e.g., `top_k`, `score_threshold`)
+
+**Example metadata structure used in this template:**
+
+```typescript
+{
+  name: string;
+  description?: string;
+  filename?: string;
+  price?: number;
+  category?: string;
+  // ... other fields
+}
+```
+
+The template also expects search results to include an `image_url.url` field for product images.
+
+### 5. Run the Application
 
 Start the development server:
 

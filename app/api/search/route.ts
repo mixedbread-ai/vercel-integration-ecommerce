@@ -24,9 +24,16 @@ export async function GET(request: NextRequest) {
       apiKey: process.env.MXBAI_API_KEY,
     });
 
+    if (!process.env.MXBAI_STORE_ID) {
+      return NextResponse.json(
+        { error: "Store identifier not configured" },
+        { status: 500 },
+      );
+    }
+
     const response = await client.stores.search({
       query,
-      store_identifiers: ["vercel-integration-ecom"],
+      store_identifiers: [process.env.MXBAI_STORE_ID],
       top_k: 20,
       search_options: {
         return_metadata: true,
