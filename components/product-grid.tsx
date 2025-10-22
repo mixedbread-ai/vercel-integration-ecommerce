@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "motion/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useApp } from "@/contexts/app-context";
 import type { SearchChunk } from "@/lib/types";
 
@@ -18,6 +18,18 @@ export function ProductGrid({ products }: ProductGridProps) {
     setIsProductSelected(id !== null);
   };
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: handleSelect is stable dependency
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && selected) {
+        handleSelect(null);
+      }
+    };
+
+    window.addEventListener("keydown", handleEscape);
+    return () => window.removeEventListener("keydown", handleEscape);
+  }, [selected]);
+
   if (products.length === 0) {
     return (
       <div className="flex min-h-[400px] items-center justify-center">
@@ -32,7 +44,7 @@ export function ProductGrid({ products }: ProductGridProps) {
 
   return (
     <>
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
         {products.map((product) => {
           const productId = product.metadata?.filename || "product";
 
@@ -63,7 +75,7 @@ export function ProductGrid({ products }: ProductGridProps) {
                 )}
               </motion.div>
               <div className="space-y-1 text-center">
-                <h3 className="text-sm leading-tight font-semibold">
+                <h3 className="text-sm leading-tight">
                   {product.metadata?.name || "Unnamed Product"}
                 </h3>
               </div>
@@ -98,9 +110,9 @@ export function ProductGrid({ products }: ProductGridProps) {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ delay: 0.2 }}
-                className="text-center space-y-2 px-4"
+                className="text-center space-y-2 px-4 leading-tight"
               >
-                <h2 className="text-2xl font-semibold leading-tight">
+                <h2 className="text-2xl">
                   {selectedProduct.metadata?.name || "Unnamed Product"}
                 </h2>
                 {selectedProduct.metadata?.description && (

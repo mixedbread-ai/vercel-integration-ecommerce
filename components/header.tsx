@@ -1,7 +1,8 @@
 "use client";
 
-import { Search, SendHorizontal } from "lucide-react";
+import { Loader2, Search, SendHorizontal } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useApp } from "@/contexts/app-context";
@@ -9,12 +10,15 @@ import mixedbreadLogo from "@/public/mixedbread_logo.svg";
 import vercelLogo from "@/public/vercel_logo.svg";
 
 export function Header() {
-  const { searchInput, setSearchInput, handleSearch } = useApp();
+  const { searchInput, setSearchInput, handleSearch, isLoading } = useApp();
 
   return (
     <header className="w-full border-b">
       <div className="flex w-full flex-col gap-3 px-5 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:py-4">
-        <div className="flex items-center justify-end gap-2 sm:order-2 sm:gap-3">
+        <Link
+          href="/"
+          className="flex items-center justify-end gap-2 sm:order-2 sm:gap-3"
+        >
           <Image
             className="h-4 w-auto sm:h-5"
             src={vercelLogo}
@@ -32,7 +36,7 @@ export function Header() {
             height={24}
             priority
           />
-        </div>
+        </Link>
 
         <form
           onSubmit={handleSearch}
@@ -45,7 +49,7 @@ export function Header() {
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
               placeholder="Search for clothing..."
-              className="h-8 pl-10 font-semibold"
+              className="h-8 pl-10"
             />
           </div>
           <Button
@@ -53,8 +57,13 @@ export function Header() {
             variant="outline"
             size="icon"
             className="h-8 w-8 shrink-0"
+            disabled={isLoading}
           >
-            <SendHorizontal className="h-3.5 w-3.5" />
+            {isLoading ? (
+              <Loader2 className="h-3.5 w-3.5 animate-spin" />
+            ) : (
+              <SendHorizontal className="h-3.5 w-3.5" />
+            )}
           </Button>
         </form>
       </div>
