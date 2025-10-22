@@ -3,6 +3,7 @@
 import { createContext, type ReactNode, useContext, useState } from "react";
 import { useSearch } from "@/hooks/use-search";
 import type { SearchChunk } from "@/lib/types";
+import { useUploadSampleData } from "@/hooks/upload-sample-data";
 
 interface AppContextType {
   // Search state
@@ -19,18 +20,23 @@ interface AppContextType {
   // Selection state
   isProductSelected: boolean;
   setIsProductSelected: (selected: boolean) => void;
+
+  // Store state
+  ingestingFiles: boolean;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export function AppProvider({ children }: { children: ReactNode }) {
-  const [query, setQuery] = useState("A cozy gray sweater for the winter");
+  const [query, setQuery] = useState("Pants");
   const [searchInput, setSearchInput] = useState(
-    "A cozy gray sweater for the winter",
+    "Pants",
   );
   const [isProductSelected, setIsProductSelected] = useState(false);
 
-  const { products, isLoading, error } = useSearch(query);
+  const { products, isLoading, error, containsFiles} = useSearch(query);
+  // Trigger sample data upload when store has no files yet
+  const { isLoading: ingestingFiles } = useUploadSampleData(!containsFiles);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -49,6 +55,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         error,
         isProductSelected,
         setIsProductSelected,
+        ingestingFiles,
       }}
     >
       {children}

@@ -4,12 +4,15 @@ import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { useApp } from "@/contexts/app-context";
 import type { SearchChunk } from "@/lib/types";
+import Link from "next/link";
+import { Button } from "./ui/button";
 
 interface ProductGridProps {
   products: SearchChunk[];
+  ingestingFiles: boolean;
 }
 
-export function ProductGrid({ products }: ProductGridProps) {
+export function ProductGrid({ products, ingestingFiles }: ProductGridProps) {
   const [selected, setSelected] = useState<string | null>(null);
   const { setIsProductSelected } = useApp();
 
@@ -30,10 +33,21 @@ export function ProductGrid({ products }: ProductGridProps) {
     return () => window.removeEventListener("keydown", handleEscape);
   }, [selected]);
 
+  if (ingestingFiles) {
+    return (
+      <div className="flex min-h-[400px] items-center justify-center">
+        <div className="flex flex-col items-center space-y-4">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+          <p className="text-sm text-muted-foreground">Ingesting files...</p>
+        </div>
+      </div>
+    );
+  }
+
   if (products.length === 0) {
     return (
       <div className="flex min-h-[400px] items-center justify-center">
-        <p className="text-sm text-muted-foreground">No products found</p>
+        <p className="text-sm text-muted-foreground">No items found</p>
       </div>
     );
   }
