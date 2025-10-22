@@ -30,6 +30,7 @@ export async function GET(request: NextRequest) {
       top_k: 20,
       search_options: {
         return_metadata: true,
+        score_threshold: 0.65,
       },
     });
 

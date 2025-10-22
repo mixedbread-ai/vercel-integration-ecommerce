@@ -9,12 +9,14 @@ export function ProductSkeleton() {
   );
 }
 
-export function ProductGridSkeleton({ count = 20 }: { count?: number }) {
+export function ProductGridSkeleton({ count = 15 }: { count?: number }) {
   return (
     <div className="grid grid-cols-3 gap-2 sm:grid-cols-4 sm:gap-3 lg:grid-cols-5 lg:gap-4">
-      {Array.from({ length: count }).map((_, i) => (
-        <ProductSkeleton key={`product-skeleton-${i}`} />
-      ))}
+      {
+        Array.from({ length: count }).map((_, i) => (
+          <ProductSkeleton key={`product-skeleton-${i + 1}`} />
+        )) as React.ReactNode[]
+      }
     </div>
   );
 }
