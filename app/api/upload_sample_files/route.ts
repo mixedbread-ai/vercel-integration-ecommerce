@@ -45,6 +45,6 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Files error:", error);
-    return NextResponse.json({ containsFiles: false }, { status: 500 });
+    return NextResponse.json({ success: false }, { status: 500 });
   }
 }
