@@ -57,7 +57,7 @@ MXBAI_STORE_ID=your-store-id
    - Visit the [Mixedbread Platform](https://platform.mixedbread.com/platform?next=api-keys)
    - Sign up or log in to your account
    - Navigate to API Keys and create a new key
-   - Pick a store ID from your store list
+   - Copy your API key and store ID from the platform
 
 ### 4. Update Code and Metadata
 
