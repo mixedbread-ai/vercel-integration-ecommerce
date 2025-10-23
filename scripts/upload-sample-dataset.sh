@@ -1,5 +1,7 @@
 #!/bin/bash
 
+dnf install jq -y
+
 echo "Uploading sample dataset..."
 
 if [ -z "$MXBAI_API_KEY" ]; then
