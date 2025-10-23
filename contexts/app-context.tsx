@@ -28,9 +28,9 @@ interface AppContextType {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export function AppProvider({ children }: { children: ReactNode }) {
-  const [query, setQuery] = useState("Pants");
+  const [query, setQuery] = useState("");
   const [searchInput, setSearchInput] = useState(
-    "Pants",
+    "",
   );
   const [isProductSelected, setIsProductSelected] = useState(false);
 

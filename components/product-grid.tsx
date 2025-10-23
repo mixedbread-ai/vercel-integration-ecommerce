@@ -53,14 +53,14 @@ export function ProductGrid({ products, ingestingFiles }: ProductGridProps) {
   }
 
   const selectedProduct = products.find(
-    (p) => (p.metadata?.filename || "product") === selected,
+    (p) => (p.metadata?.filename || p.generated_metadata?.filename || "product") === selected,
   );
 
   return (
     <>
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3 lg:grid-cols-5 lg:gap-4">
         {products.map((product) => {
-          const productId = product.metadata?.filename || "product";
+          const productId = product.metadata?.filename || product.generated_metadata?.filename || "product";
 
           return (
             <motion.div
@@ -77,7 +77,7 @@ export function ProductGrid({ products, ingestingFiles }: ProductGridProps) {
                 {product.image_url?.url ? (
                   <img
                     src={product.image_url.url}
-                    alt={product.metadata?.name || "Product"}
+                    alt={product.metadata?.name || product.generated_metadata?.name || "Product"}
                     className="h-full w-full object-cover"
                   />
                 ) : (
@@ -90,7 +90,7 @@ export function ProductGrid({ products, ingestingFiles }: ProductGridProps) {
               </motion.div>
               <div className="space-y-1 text-center">
                 <h3 className="text-sm leading-tight">
-                  {product.metadata?.name || "Unnamed Product"}
+                  {product.metadata?.name || product.generated_metadata?.name || "Unnamed Product"}
                 </h3>
               </div>
             </motion.div>
@@ -114,7 +114,7 @@ export function ProductGrid({ products, ingestingFiles }: ProductGridProps) {
               >
                 <img
                   src={selectedProduct.image_url.url}
-                  alt={selectedProduct.metadata?.name || "Product"}
+                  alt={selectedProduct.metadata?.name || selectedProduct.generated_metadata?.name || "Product"}
                   className="w-full h-full object-cover"
                 />
               </motion.div>
@@ -127,11 +127,11 @@ export function ProductGrid({ products, ingestingFiles }: ProductGridProps) {
                 className="text-center space-y-2 px-4 leading-tight"
               >
                 <h2 className="text-2xl">
-                  {selectedProduct.metadata?.name || "Unnamed Product"}
+                  {selectedProduct.metadata?.name || selectedProduct.generated_metadata?.name || "Unnamed Product"}
                 </h2>
-                {selectedProduct.metadata?.description && (
+                {(selectedProduct.metadata?.description || selectedProduct.generated_metadata?.description) && (
                   <p className="text-sm text-muted-foreground max-w-xl">
-                    {selectedProduct.metadata.description}
+                    {selectedProduct.metadata?.description || selectedProduct.generated_metadata?.description || "No description"}
                   </p>
                 )}
               </motion.div>
