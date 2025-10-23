@@ -39,7 +39,7 @@ if [ "$file_count" = "null" ] || [ "$file_count" -eq 0 ] 2>/dev/null; then
       -H 'accept: application/vnd-mxbai.chunks-json' \
       -H "Authorization: Bearer $MXBAI_API_KEY" \
       -H 'Content-Type: multipart/form-data' \
-      -F 'file=@public/sample-data/images.mxjson;type=application/vnd-mxbai.chunks-json')
+      -F 'file=@public/sample-data/20-sample-images.mxjson;type=application/vnd-mxbai.chunks-json')
 
       file_id=$(echo "$response" | jq -r '.id')
       echo "File ID: $file_id"
