@@ -24,11 +24,7 @@ export async function GET(request: NextRequest) {
     }
 
     const files = [
-        {file_path: "product-1.png", metadata: { name: "White pants", filename: "product-1.png" }},
-        {file_path: "product-2.png", metadata: { name: "Blue pants", filename: "product-2.png" }},
-        {file_path: "product-3.png", metadata: { name: "Bathrobe", filename: "product-3.png" }},
-        {file_path: "product-4.png", metadata: { name: "Business pants", filename: "product-4.png" }},
-        {file_path: "product-5.png", metadata: { name: "Gray Tank Top", filename: "product-5.png" }},
+        {file_path: "images.mxjson"},
     ];
     for (const file of files) {
         const filePath = path.join(process.cwd(), "public", "sample-data", file.file_path);
@@ -37,7 +33,7 @@ export async function GET(request: NextRequest) {
             process.env.MXBAI_STORE_ID,
             new File([fileContent], file.file_path, { type: "image/png" }) as unknown as Uploadable,
             {
-                metadata: file.metadata,
+                metadata: {},
             }
         );
     }

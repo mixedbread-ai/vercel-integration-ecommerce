@@ -20,6 +20,7 @@ export interface SearchChunk {
     url: string;
   };
   metadata?: ProductMetadata;
+  generated_metadata?: ProductMetadata;
 }
 
 export interface SearchResponse {

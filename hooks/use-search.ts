@@ -19,7 +19,7 @@ const containsFilesFetcher = async (url: string): Promise<ContainsFilesResponse>
 
 export function useSearch(query: string) {
   const { data, error, isLoading } = useSWR<SearchResponse>(
-    query ? `/api/search?q=${encodeURIComponent(query)}` : null,
+    query ? `/api/search?q=${encodeURIComponent(query)}` : `/api/search?q=""`,
     searchFetcher,
     {
       revalidateOnFocus: false,
