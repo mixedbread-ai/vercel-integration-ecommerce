@@ -1,9 +1,9 @@
 "use client";
 
 import { createContext, type ReactNode, useContext, useState } from "react";
+import { useUploadSampleData } from "@/hooks/upload-sample-data";
 import { useSearch } from "@/hooks/use-search";
 import type { SearchChunk } from "@/lib/types";
-import { useUploadSampleData } from "@/hooks/upload-sample-data";
 
 interface AppContextType {
   // Search state
@@ -29,12 +29,10 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export function AppProvider({ children }: { children: ReactNode }) {
   const [query, setQuery] = useState("");
-  const [searchInput, setSearchInput] = useState(
-    "",
-  );
+  const [searchInput, setSearchInput] = useState("");
   const [isProductSelected, setIsProductSelected] = useState(false);
 
-  const { products, isLoading, error, containsFiles} = useSearch(query);
+  const { products, isLoading, error, containsFiles } = useSearch(query);
   // Trigger sample data upload when store has no files yet
   const { isLoading: ingestingFiles } = useUploadSampleData(!containsFiles);
 

@@ -9,7 +9,9 @@ const searchFetcher = async (url: string): Promise<SearchResponse> => {
   return res.json();
 };
 
-const containsFilesFetcher = async (url: string): Promise<ContainsFilesResponse> => {
+const containsFilesFetcher = async (
+  url: string,
+): Promise<ContainsFilesResponse> => {
   const res = await fetch(url);
   if (!res.ok) {
     throw new Error("Failed to fetch contains files data");
@@ -24,18 +26,18 @@ export function useSearch(query: string) {
     {
       revalidateOnFocus: false,
       dedupingInterval: 2000,
-    }
+    },
   );
 
   const products = data?.results || [];
   let containsFiles = true;
-  const { data: containsFilesData, error: containsFilesError, isLoading: containsFilesLoading } = useSWR<ContainsFilesResponse>(
+  const { data: containsFilesData } = useSWR<ContainsFilesResponse>(
     `/api/contains_files`,
     containsFilesFetcher,
     {
       revalidateOnFocus: false,
       dedupingInterval: 2000,
-    }
+    },
   );
   containsFiles = containsFilesData?.containsFiles ?? true;
 

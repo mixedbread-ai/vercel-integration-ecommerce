@@ -1,7 +1,7 @@
 import { Mixedbread } from "@mixedbread/sdk";
-import { type NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   if (!process.env.MXBAI_API_KEY) {
     return NextResponse.json(
       { error: "API key not configured" },
@@ -22,11 +22,11 @@ export async function GET(request: NextRequest) {
     }
 
     const response = await client.stores.files.list(
-        process.env.MXBAI_STORE_ID,
-        {
-            limit: 1,
-            include_total: false,
-        }
+      process.env.MXBAI_STORE_ID,
+      {
+        limit: 1,
+        include_total: false,
+      },
     );
 
     return NextResponse.json({ containsFiles: response.data.length > 0 });

@@ -1,9 +1,9 @@
-import { Mixedbread, Uploadable } from "@mixedbread/sdk";
-import { type NextRequest, NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
+import fs from "node:fs";
+import path from "node:path";
+import { Mixedbread, type Uploadable } from "@mixedbread/sdk";
+import { NextResponse } from "next/server";
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   if (!process.env.MXBAI_API_KEY) {
     return NextResponse.json(
       { error: "API key not configured" },
@@ -24,18 +24,28 @@ export async function GET(request: NextRequest) {
     }
 
     const files = [
-        {file_path: "20-sample-images.mxjson", type: "application/vnd-mxbai.chunks-json"},
+      {
+        file_path: "20-sample-images.mxjson",
+        type: "application/vnd-mxbai.chunks-json",
+      },
     ];
     for (const file of files) {
-        const filePath = path.join(process.cwd(), "public", "sample-data", file.file_path);
-        const fileContent = fs.readFileSync(filePath);
-        await client.stores.files.uploadAndPoll(
-            process.env.MXBAI_STORE_ID,
-            new File([fileContent], file.file_path, { type: file.type }) as unknown as Uploadable,
-            {
-                metadata: {},
-            }
-        );
+      const filePath = path.join(
+        process.cwd(),
+        "public",
+        "sample-data",
+        file.file_path,
+      );
+      const fileContent = fs.readFileSync(filePath);
+      await client.stores.files.uploadAndPoll(
+        process.env.MXBAI_STORE_ID,
+        new File([fileContent], file.file_path, {
+          type: file.type,
+        }) as unknown as Uploadable,
+        {
+          metadata: {},
+        },
+      );
     }
 
     return NextResponse.json({ success: true });

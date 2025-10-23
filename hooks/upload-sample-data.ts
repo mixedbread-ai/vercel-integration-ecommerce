@@ -18,9 +18,11 @@ export function useUploadSampleData(enabled: boolean) {
       onSuccess: () => {
         // Refresh store state and any existing search queries once upload finishes
         mutate(`/api/contains_files`);
-        mutate((key) => typeof key === "string" && key.startsWith(`/api/search`));
+        mutate(
+          (key) => typeof key === "string" && key.startsWith(`/api/search`),
+        );
       },
-    }
+    },
   );
 
   return {
