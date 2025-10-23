@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
     }
 
     const files = [
-        {file_path: "images.mxjson", type: "application/vnd-mxbai.chunks-json"},
+        {file_path: "20-sample-images.mxjson", type: "application/vnd-mxbai.chunks-json"},
     ];
     for (const file of files) {
         const filePath = path.join(process.cwd(), "public", "sample-data", file.file_path);
