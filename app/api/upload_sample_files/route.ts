@@ -24,14 +24,14 @@ export async function GET(request: NextRequest) {
     }
 
     const files = [
-        {file_path: "images.mxjson"},
+        {file_path: "images.mxjson", type: "application/vnd-mxbai.chunks-json"},
     ];
     for (const file of files) {
         const filePath = path.join(process.cwd(), "public", "sample-data", file.file_path);
         const fileContent = fs.readFileSync(filePath);
         await client.stores.files.uploadAndPoll(
             process.env.MXBAI_STORE_ID,
-            new File([fileContent], file.file_path, { type: "image/png" }) as unknown as Uploadable,
+            new File([fileContent], file.file_path, { type: file.type }) as unknown as Uploadable,
             {
                 metadata: {},
             }
